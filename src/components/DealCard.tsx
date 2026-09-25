@@ -1,5 +1,5 @@
 import { CATEGORY_EMOJI } from "@/lib/categories";
-import { AVAILABILITY_LABEL, costcoLink, formatMoney } from "@/lib/format";
+import { AVAILABILITY_LABEL, formatMoney, type CostcoLink } from "@/lib/format";
 import type { DealItem } from "@/lib/types";
 
 const AVAILABILITY_STYLE = {
@@ -8,8 +8,15 @@ const AVAILABILITY_STYLE = {
   warehouse: "bg-kc-ink/10 text-kc-ink/80",
 } as const;
 
-export default function DealCard({ item, amazonUrl }: { item: DealItem; amazonUrl?: string }) {
-  const costco = costcoLink(item);
+export default function DealCard({
+  item,
+  costco,
+  amazonUrl,
+}: {
+  item: DealItem;
+  costco: CostcoLink;
+  amazonUrl?: string;
+}) {
   return (
     <article className="flex h-full flex-col rounded-2xl border border-kc-ink/10 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
       <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide">

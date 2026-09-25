@@ -23,5 +23,10 @@ for (const [name, fetchedAt] of fixtures) {
     sourceUrl: "https://www.costco.com/o/-/warehouse-savings",
   });
   file.period.is_sample = true;
+  // Fixture product URLs are made up; never ship them as clickable links.
+  for (const item of file.items) {
+    item.product_url = null;
+    item.product_url_status = "unchecked";
+  }
   console.log(`wrote ${writePeriodFile(file, SAMPLE_DIR)}`);
 }

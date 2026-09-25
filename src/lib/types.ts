@@ -39,12 +39,17 @@ export interface DealItem {
   category: Category;
   availability: Availability;
   purchase_limit: number | null;
-  /**
-   * Product page on costco.com when the savings page links one; null
-   * otherwise (the UI falls back to a Costco.com search by item number).
-   */
+  /** Product page link found on the savings page, if any. */
   product_url: string | null;
+  /**
+   * Whether `product_url` has been opened and confirmed to show this item's
+   * number. The site only links product pages that are "verified"; anything
+   * else falls back to a Costco.com search for the item number.
+   */
+  product_url_status: ProductUrlStatus;
 }
+
+export type ProductUrlStatus = "unchecked" | "verified" | "broken";
 
 /** On-disk shape of `data/periods/<period id>.json`. */
 export interface PeriodFile {

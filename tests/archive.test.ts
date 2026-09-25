@@ -62,3 +62,13 @@ test("a refresh without a product link keeps the stored one", () => {
   assert.equal(second.file.items[0].product_url, "https://www.costco.com/p/-/a/1");
   assert.deepEqual(second.updated, []);
 });
+
+test("a changed product link must be re-verified; an unchanged one keeps its status", () => {
+  const first = mergeFetch(null, page([{ item_number: "1", product_url: "https://www.costco.com/p/-/a/1" }]), { now: new Date(), sourceUrl: url });
+  assert.equal(first.file.items[0].product_url_status, "unchecked");
+  first.file.items[0].product_url_status = "verified";
+  const same = mergeFetch(first.file, page([{ item_number: "1", product_url: "https://www.costco.com/p/-/a/1" }]), { now: new Date(), sourceUrl: url });
+  assert.equal(same.file.items[0].product_url_status, "verified");
+  const moved = mergeFetch(same.file, page([{ item_number: "1", product_url: "https://www.costco.com/p/-/b/1" }]), { now: new Date(), sourceUrl: url });
+  assert.equal(moved.file.items[0].product_url_status, "unchecked");
+});

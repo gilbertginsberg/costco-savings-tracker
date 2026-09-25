@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import DealCard from "./DealCard";
 import { CATEGORIES, CATEGORY_EMOJI, categorySlug, type Category } from "@/lib/categories";
-import { formatMoney } from "@/lib/format";
+import { formatMoney, type CostcoLink } from "@/lib/format";
 import type { Availability, DealItem } from "@/lib/types";
 
 type SortKey = "savings" | "ending" | "name";
@@ -23,6 +23,8 @@ interface Props {
   categoryBasePath?: string;
   /** item id → affiliate URL, precomputed on the server for curated items. */
   amazonLinks?: Record<string, string>;
+  /** item id → Costco.com link, precomputed on the server. */
+  costcoLinks: Record<string, CostcoLink>;
 }
 
 export default function DealsBrowser({
@@ -31,6 +33,7 @@ export default function DealsBrowser({
   initialCategory = null,
   categoryBasePath,
   amazonLinks = {},
+  costcoLinks,
 }: Props) {
   const [category, setCategory] = useState<Category | null>(initialCategory);
   const [query, setQuery] = useState("");
@@ -172,7 +175,7 @@ export default function DealsBrowser({
           <ul className="mt-3 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {visible.map((item) => (
               <li key={item.id}>
-                <DealCard item={item} amazonUrl={amazonLinks[item.id]} />
+                <DealCard item={item} costco={costcoLinks[item.id]} amazonUrl={amazonLinks[item.id]} />
               </li>
             ))}
           </ul>

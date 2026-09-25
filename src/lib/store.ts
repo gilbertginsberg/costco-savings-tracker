@@ -25,11 +25,15 @@ export function readPeriodFile(id: string, dir: string = PERIODS_DIR): PeriodFil
   return fs.existsSync(file) ? normalize(JSON.parse(fs.readFileSync(file, "utf8")) as PeriodFile) : null;
 }
 
-/** Fills fields added after a file was written (older files lack product_url). */
+/** Fills fields added after a file was written (older files lack them). */
 function normalize(file: PeriodFile): PeriodFile {
   return {
     ...file,
-    items: file.items.map((i) => ({ ...i, product_url: i.product_url ?? null })),
+    items: file.items.map((i) => ({
+      ...i,
+      product_url: i.product_url ?? null,
+      product_url_status: i.product_url_status ?? "unchecked",
+    })),
   };
 }
 

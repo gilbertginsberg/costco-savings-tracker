@@ -69,12 +69,16 @@ export function mergeFetch(
   for (const p of parsed.items) {
     seenNow.add(p.item_number);
     const prev = byNumber.get(p.item_number);
+    // A fetch that misses a link shouldn't erase one we already found, and an
+    // unchanged link keeps its verification result.
+    const product_url = p.product_url ?? prev?.product_url ?? null;
     const next: DealItem = {
       id: `${id}:${p.item_number}`,
       promo_period_id: id,
       ...p,
-      // A fetch that misses a link shouldn't erase one we already found.
-      product_url: p.product_url ?? prev?.product_url ?? null,
+      product_url,
+      product_url_status:
+        prev && prev.product_url === product_url ? prev.product_url_status : "unchecked",
     };
     if (!prev) added.push(p.item_number);
     else if (ITEM_FIELDS.some((f) => prev[f] !== next[f])) updated.push(p.item_number);

@@ -4,10 +4,14 @@
  *
  * Usage:
  *   npm run fetch-deals                  # respects cadence (skips most days)
- *   npm run fetch-deals -- --force       # ignore cadence (still one request)
- *   npm run fetch-deals -- --file page.html   # parse a saved page, no network
+ *   npm run fetch-deals -- --force       # ignore cadence
+ *   npm run fetch-deals -- --file page.html   # parse a saved page instead of fetching
+ *   npm run fetch-deals -- --skip-link-check  # don't open product pages
  *   npm run fetch-deals -- --browser     # render with Playwright (if installed)
  *   npm run fetch-deals -- --dry-run     # parse + report, write nothing
+ *
+ * After parsing, new product links are opened (at most 40 per run, 2s apart)
+ * and kept only if the page shows the item's number; see src/lib/link-check.ts.
  *
  * Exit codes: 0 ok/skipped, 1 fetch or parse failure (nothing written),
  * 3 stale (page still shows a period that has ended; URL may have moved).
@@ -17,6 +21,7 @@ import { parseArgs } from "node:util";
 import { mergeFetch, periodId } from "../src/lib/archive";
 import { shouldFetch, DEFAULT_INTERVAL_DAYS } from "../src/lib/cadence";
 import { daysBetween, todayIso } from "../src/lib/dates";
+import { verifyProductLinks } from "../src/lib/link-check";
 import { parseWarehouseSavings, ParseError } from "../src/lib/parser";
 import { readPeriodFile, readPeriodFiles, writePeriodFile } from "../src/lib/store";
 
@@ -32,6 +37,7 @@ const { values: args } = parseArgs({
   options: {
     force: { type: "boolean", default: false },
     "dry-run": { type: "boolean", default: false },
+    "skip-link-check": { type: "boolean", default: false },
     browser: { type: "boolean", default: false },
     file: { type: "string" },
     url: { type: "string" },
@@ -127,6 +133,19 @@ async function main() {
       ? `New promo period ${id} — archiving ${result.file.items.length} items.`
       : `Refresh of ${id}: ${result.added.length} added, ${result.updated.length} updated, ${result.missing.length} no longer listed (kept).`,
   );
+
+  // Only links confirmed to show the right item are displayed (see link-check.ts).
+  if (!args["skip-link-check"]) {
+    const links = await verifyProductLinks(result.file.items, {
+      fetchImpl: fetch,
+      headers: { "User-Agent": USER_AGENT, Accept: "text/html" },
+      log,
+    });
+    log(
+      `Product links: ${links.verified} verified, ${links.broken.length} broken, ${links.skipped} left for a later run.`,
+    );
+    for (const b of links.broken) console.warn(`::warning::Broken product link (item falls back to search): ${b}`);
+  }
 
   if (args["dry-run"]) {
     log("Dry run: nothing written.");

@@ -26,14 +26,24 @@ export function totalSavings(items: DealItem[]): number {
   return items.reduce((sum, i) => sum + i.discount_amount, 0);
 }
 
+export interface CostcoLink {
+  href: string;
+  label: string;
+}
+
+const costcoSearch = (q: string) => `https://www.costco.com/s?keyword=${encodeURIComponent(q)}`;
+
 /**
- * Where a deal card links on costco.com: the product page when we have it,
- * otherwise a Costco.com search for the item number.
+ * Where a deal card links on costco.com:
+ * - the product page, but only once the fetch job has verified it shows this item;
+ * - otherwise a Costco.com search for the item number, which Costco's search
+ *   resolves to that exact product;
+ * - for sample data (fake item numbers), a search by product name.
  */
-export function costcoLink(item: DealItem): { href: string; label: string } {
-  if (item.product_url) return { href: item.product_url, label: "View on Costco.com" };
-  return {
-    href: `https://www.costco.com/s?dept=All&keyword=${encodeURIComponent(item.item_number)}`,
-    label: "Find on Costco.com",
-  };
+export function costcoLink(item: DealItem, opts: { isSample?: boolean } = {}): CostcoLink {
+  if (opts.isSample) return { href: costcoSearch(item.item_name), label: "Search Costco.com" };
+  if (item.product_url && item.product_url_status === "verified") {
+    return { href: item.product_url, label: "View on Costco.com" };
+  }
+  return { href: costcoSearch(item.item_number), label: "Find on Costco.com" };
 }
