@@ -1,0 +1,56 @@
+name: Fetch Costco Warehouse Savings
+
+# Runs once a day; scripts/fetch-deals.ts decides whether to actually hit
+# costco.com (every 3 days mid-period, daily in the final week). Never more
+# than once a day.
+#
+# Scheduled runs are OFF until you set the repository variable
+# FETCH_ENABLED=true (Settings → Secrets and variables → Actions → Variables),
+# which should happen only after reviewing Costco.com's Terms of Use.
+on:
+  schedule:
+    - cron: "17 14 * * *" # 7:17am Pacific (PDT)
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Ignore the cadence check (still a single request)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-deals
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    if: github.event_name == 'workflow_dispatch' || vars.FETCH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Fetch and parse
+        id: fetch
+        run: npm run fetch-deals -- ${{ inputs.force && '--force' || '' }}
+        env:
+          COSTCO_SAVINGS_URL: ${{ vars.COSTCO_SAVINGS_URL }}
+      # Commit even when the fetch exits 3 ("stale"), so last_fetched_at is kept.
+      - name: Commit archive changes
+        if: always() && steps.fetch.outcome != 'skipped'
+        run: |
+          git add data/periods
+          if git diff --staged --quiet; then
+            echo "No data changes."
+            exit 0
+          fi
+          git config user.name "costco-savings-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: update Warehouse Savings archive"
+          git push

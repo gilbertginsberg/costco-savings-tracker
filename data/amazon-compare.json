@@ -1,0 +1,16 @@
+{
+  "_comment": "Curation for 'Compare on Amazon' links. Rules pick brand-name items in categories where an Amazon price check is genuinely useful; 'include'/'exclude' override by item number. Kirkland Signature is excluded because it isn't sold on Amazon.",
+  "categories": [
+    "Appliances",
+    "Beauty",
+    "Electronics",
+    "Health & Personal Care",
+    "Home & Kitchen",
+    "Home Improvement",
+    "Patio/Lawn/Garden"
+  ],
+  "minDiscount": 10,
+  "excludeNamePatterns": ["^Kirkland Signature", "Costco", "Gift Card", "Shop Card"],
+  "include": [],
+  "exclude": []
+}
