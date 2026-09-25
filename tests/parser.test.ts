@@ -3,7 +3,9 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import {
+  extractProductLinks,
   htmlToLines,
+  productUrl,
   parseValidRange,
   parseWarehouseSavings,
   ParseError,
@@ -136,4 +138,50 @@ test("category headers tolerate punctuation and 'and'", () => {
   assert.equal(matchCategoryHeader("ELECTRONICS"), "Electronics");
   assert.equal(matchCategoryHeader("Electronics Savings"), "Electronics");
   assert.equal(matchCategoryHeader("Electronics Sale Item 123"), null);
+});
+
+test("attaches each tile's product link to its own item, skipping nav/footer links", () => {
+  const page = parseWarehouseSavings(fixture("warehouse-savings-2026-09.html"));
+  const linked = page.items.filter((i) => i.product_url);
+  // Every 5th tile in the fixture has no link.
+  assert.equal(linked.length, 24);
+  assert.equal(
+    page.items[0].product_url,
+    "https://www.costco.com/kirkland-signature-men-x27-s-performance-fleece-pullover.product.4000000000.html",
+  );
+  assert.equal(page.items[4].product_url, null, "an unlinked tile must not borrow a neighbour's link");
+  assert.ok(linked.every((i) => i.product_url!.endsWith(`.product.${4000000000 + page.items.indexOf(i)}.html`)));
+  const urls = page.items.map((i) => i.product_url).join(" ");
+  assert.ok(!urls.includes("4999999999") && !urls.includes("4888888888"));
+});
+
+test("handles new-style /p/ product URLs", () => {
+  const page = parseWarehouseSavings(fixture("warehouse-savings-2026-08.html"));
+  assert.equal(page.items.filter((i) => i.product_url).length, 15);
+  assert.match(page.items[0].product_url!, /^https:\/\/www\.costco\.com\/p\/-\/[a-z0-9-]+\/4000100000$/);
+});
+
+test("pages without product links parse with product_url null", () => {
+  const page = parseWarehouseSavings(fixture("warehouse-savings-flat.html"));
+  assert.ok(page.items.every((i) => i.product_url === null));
+});
+
+test("productUrl only accepts costco.com product pages", () => {
+  assert.equal(
+    productUrl("//costco.com/foo.product.123.html?x=1#y"),
+    "https://www.costco.com/foo.product.123.html",
+  );
+  assert.equal(productUrl("/p/-/foo/123"), "https://www.costco.com/p/-/foo/123");
+  assert.equal(productUrl("#"), null);
+  assert.equal(productUrl("/o/-/warehouse-savings"), null);
+  assert.equal(productUrl("https://www.amazon.com/foo.product.123.html"), null);
+  assert.equal(productUrl("https://evilcostco.com/foo.product.123.html"), null);
+  assert.equal(productUrl(undefined), null);
+});
+
+test("a link in a container holding several items is ignored", () => {
+  const links = extractProductLinks(`<div>
+    <a href="/bundle.product.1.html">Shop the bundle</a>
+    <div>Item 111111</div><div>Item 222222</div></div>`);
+  assert.equal(links.size, 0);
 });

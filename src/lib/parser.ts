@@ -30,6 +30,8 @@ export interface ParsedItem {
   category: Category;
   availability: Availability;
   purchase_limit: number | null;
+  /** Product page on costco.com, when the savings page links to one. */
+  product_url: string | null;
 }
 
 export interface ParsedPage {
@@ -53,10 +55,66 @@ const BLOCK_ELEMENTS = [
   "tfoot", "th", "thead", "tr", "ul",
 ].join(",");
 
+const COSTCO_ORIGIN = "https://www.costco.com";
+/**
+ * Returns a canonical costco.com product URL for `href`, or null if it isn't
+ * a product page (nav, footer, "#", the savings page itself, other sites).
+ * Covers both URL styles: `/name.product.4000123456.html` and `/p/-/name/4000123456`.
+ */
+export function productUrl(href: string | undefined): string | null {
+  if (!href) return null;
+  let url: URL;
+  try {
+    url = new URL(href, COSTCO_ORIGIN);
+  } catch {
+    return null;
+  }
+  if (!/(^|\.)costco\.com$/i.test(url.hostname)) return null;
+  if (!/\.product\.\d+\.html$|^\/p\//i.test(url.pathname)) return null;
+  url.protocol = "https:";
+  url.hostname = "www.costco.com";
+  url.search = "";
+  url.hash = "";
+  return url.toString();
+}
+
+const ITEM_NUMBER_RE = /items?\s*#?\s*:?\s*(\d{3,9})/gi;
+
+function itemNumbersIn(text: string): Set<string> {
+  return new Set([...text.matchAll(ITEM_NUMBER_RE)].map((m) => m[1]));
+}
+
+/**
+ * Maps item number → product URL using page structure rather than text order:
+ * from each product link, climb to the nearest ancestor that mentions an item
+ * number. If it mentions exactly one, that ancestor is the product's tile.
+ * If it mentions several, the link isn't inside a single tile, so it's skipped.
+ */
+export function extractProductLinks(html: string): Map<string, string> {
+  const $ = cheerio.load(html);
+  $("script, style, noscript, template").remove();
+  const links = new Map<string, string>();
+  $("a[href]").each((_, a) => {
+    const url = productUrl($(a).attr("href"));
+    if (!url) return;
+    for (let el = $(a); el.length > 0 && !el.is("html"); el = el.parent()) {
+      const numbers = itemNumbersIn(el.text());
+      if (numbers.size === 0) continue;
+      if (numbers.size === 1) {
+        const [n] = numbers;
+        if (!links.has(n)) links.set(n, url);
+      }
+      return;
+    }
+  });
+  return links;
+}
+
 /** Flattens HTML to trimmed, non-empty text lines in document order. */
 export function htmlToLines(html: string): string[] {
   const $ = cheerio.load(html);
   $("script, style, noscript, svg, template, iframe, link, meta").remove();
+
   $("br").replaceWith("\n");
   $(BLOCK_ELEMENTS).each((_, el) => {
     $(el).prepend("\n").append("\n");
@@ -267,6 +325,7 @@ export function parseWarehouseSavings(html: string): ParsedPage {
     );
   }
 
+  const links = extractProductLinks(html);
   const warnings: string[] = [];
   const items: ParsedItem[] = [];
   const seen = new Set<string>();
@@ -319,6 +378,7 @@ export function parseWarehouseSavings(html: string): ParsedPage {
       category,
       availability: d.availability ?? "both",
       purchase_limit: d.purchase_limit ?? null,
+      product_url: links.get(d.item_number) ?? null,
     });
   };
 

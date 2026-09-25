@@ -69,6 +69,7 @@ For each fetch, `src/lib/parser.ts`:
 2. **Extracts the period key** from the `Valid … - …` banner. If there is no banner, it throws, and nothing is written. This is usually a layout change or a bot-check page.
 3. **Walks lines top to bottom**, and any line matching a known category header (`categories.ts`) starts a new section.
 4. **Tokenizes each line** into fields (`Warehouse & Online` / `Online Only`, `Item 1234567`, `Limit 2`, `Save$50` or `$19.99 After $5 OFF`). Leftover text is the product name. Tokens are grouped into items anchored on the unique `Item N` marker, which works whether fields sit on separate lines or run together.
+5. **Pairs product links by page structure.** From each costco.com product link (`…product.123.html` or `/p/…`), it climbs to the nearest element that mentions an item number. If exactly one item number is there, the link belongs to that item. Cards with no link fall back to a Costco.com search by item number.
 
 Then `archive.ts` **files the result**:
 

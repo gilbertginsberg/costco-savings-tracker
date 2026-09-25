@@ -16,13 +16,21 @@ export function readPeriodFiles(dir: string = PERIODS_DIR): PeriodFile[] {
   return fs
     .readdirSync(dir)
     .filter((f) => f.endsWith(".json"))
-    .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) as PeriodFile)
+    .map((f) => normalize(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) as PeriodFile))
     .sort((a, b) => b.period.valid_start.localeCompare(a.period.valid_start));
 }
 
 export function readPeriodFile(id: string, dir: string = PERIODS_DIR): PeriodFile | null {
   const file = path.join(dir, `${id}.json`);
-  return fs.existsSync(file) ? (JSON.parse(fs.readFileSync(file, "utf8")) as PeriodFile) : null;
+  return fs.existsSync(file) ? normalize(JSON.parse(fs.readFileSync(file, "utf8")) as PeriodFile) : null;
+}
+
+/** Fills fields added after a file was written (older files lack product_url). */
+function normalize(file: PeriodFile): PeriodFile {
+  return {
+    ...file,
+    items: file.items.map((i) => ({ ...i, product_url: i.product_url ?? null })),
+  };
 }
 
 export function writePeriodFile(file: PeriodFile, dir: string = PERIODS_DIR): string {

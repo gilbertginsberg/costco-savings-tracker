@@ -39,6 +39,11 @@ export interface DealItem {
   category: Category;
   availability: Availability;
   purchase_limit: number | null;
+  /**
+   * Product page on costco.com when the savings page links one; null
+   * otherwise (the UI falls back to a Costco.com search by item number).
+   */
+  product_url: string | null;
 }
 
 /** On-disk shape of `data/periods/<period id>.json`. */

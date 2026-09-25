@@ -1,5 +1,5 @@
 import { CATEGORY_EMOJI } from "@/lib/categories";
-import { AVAILABILITY_LABEL, formatMoney } from "@/lib/format";
+import { AVAILABILITY_LABEL, costcoLink, formatMoney } from "@/lib/format";
 import type { DealItem } from "@/lib/types";
 
 const AVAILABILITY_STYLE = {
@@ -9,6 +9,7 @@ const AVAILABILITY_STYLE = {
 } as const;
 
 export default function DealCard({ item, amazonUrl }: { item: DealItem; amazonUrl?: string }) {
+  const costco = costcoLink(item);
   return (
     <article className="flex h-full flex-col rounded-2xl border border-kc-ink/10 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
       <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide">
@@ -39,7 +40,14 @@ export default function DealCard({ item, amazonUrl }: { item: DealItem; amazonUr
       </div>
 
       <h3 className="mt-3 flex-1 text-[15px] font-semibold leading-snug text-kc-ink">
-        {item.item_name}
+        <a
+          href={costco.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-kc-blue hover:underline"
+        >
+          {item.item_name}
+        </a>
       </h3>
 
       <dl className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-kc-ink/60">
@@ -55,16 +63,26 @@ export default function DealCard({ item, amazonUrl }: { item: DealItem; amazonUr
         )}
       </dl>
 
-      {amazonUrl && (
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-kc-ink/10 pt-3 text-xs font-semibold">
         <a
-          href={amazonUrl}
+          href={costco.href}
           target="_blank"
-          rel="sponsored noopener noreferrer"
-          className="mt-3 border-t border-kc-ink/10 pt-3 text-xs font-semibold text-kc-blue hover:text-kc-red hover:underline"
+          rel="noopener noreferrer"
+          className="text-kc-red hover:text-kc-red-dark hover:underline"
         >
-          Compare on Amazon →
+          {costco.label} ↗
         </a>
-      )}
+        {amazonUrl && (
+          <a
+            href={amazonUrl}
+            target="_blank"
+            rel="sponsored noopener noreferrer"
+            className="text-kc-blue hover:text-kc-red hover:underline"
+          >
+            Compare on Amazon →
+          </a>
+        )}
+      </div>
     </article>
   );
 }

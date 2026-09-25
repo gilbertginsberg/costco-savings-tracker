@@ -19,7 +19,8 @@
       "discount_type": "save",
       "category": "Apparel",
       "availability": "both",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/p/-/32-degrees-ladies-x27-cool-tee-2-pack/4000100000"
     },
     {
       "id": "2026-08-24_2026-09-20:1601382",
@@ -31,7 +32,8 @@
       "discount_type": "save",
       "category": "Appliances",
       "availability": "online",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/p/-/irobot-roomba-combo-essential-robot-vacuum/4000100001"
     },
     {
       "id": "2026-08-24_2026-09-20:1602761",
@@ -43,7 +45,8 @@
       "discount_type": "save",
       "category": "Automotive",
       "availability": "warehouse",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/p/-/kirkland-signature-synthetic-motor-oil-5w-30-6-pack/4000100002"
     },
     {
       "id": "2026-08-24_2026-09-20:1604140",
@@ -55,7 +58,8 @@
       "discount_type": "save",
       "category": "Beauty",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/p/-/neutrogena-hydro-boost-water-gel-2-pack/4000100003"
     },
     {
       "id": "2026-08-24_2026-09-20:1605519",
@@ -67,7 +71,8 @@
       "discount_type": "save",
       "category": "Electronics",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": null
     },
     {
       "id": "2026-08-24_2026-09-20:1606898",
@@ -79,7 +84,8 @@
       "discount_type": "save",
       "category": "Electronics",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/p/-/logitech-mx-master-3s-wireless-mouse/4000100005"
     },
     {
       "id": "2026-08-24_2026-09-20:1608277",
@@ -91,7 +97,8 @@
       "discount_type": "save",
       "category": "Furniture",
       "availability": "online",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/p/-/bayside-furnishings-72-quot-bookcase/4000100006"
     },
     {
       "id": "2026-08-24_2026-09-20:1609656",
@@ -103,7 +110,8 @@
       "discount_type": "save",
       "category": "Grocery",
       "availability": "both",
-      "purchase_limit": 4
+      "purchase_limit": 4,
+      "product_url": "https://www.costco.com/p/-/kirkland-signature-organic-extra-virgin-olive-oil-2-l/4000100007"
     },
     {
       "id": "2026-08-24_2026-09-20:1611035",
@@ -115,7 +123,8 @@
       "discount_type": "save",
       "category": "Grocery",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/p/-/kind-healthy-grains-bars-30-count/4000100008"
     },
     {
       "id": "2026-08-24_2026-09-20:1612414",
@@ -127,7 +136,8 @@
       "discount_type": "save",
       "category": "Health & Personal Care",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": null
     },
     {
       "id": "2026-08-24_2026-09-20:1613793",
@@ -139,7 +149,8 @@
       "discount_type": "after_discount",
       "category": "Home & Kitchen",
       "availability": "online",
-      "purchase_limit": 1
+      "purchase_limit": 1,
+      "product_url": "https://www.costco.com/p/-/vitamix-a3500-ascent-blender/4000100010"
     },
     {
       "id": "2026-08-24_2026-09-20:1615172",
@@ -151,7 +162,8 @@
       "discount_type": "save",
       "category": "Home Improvement",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/p/-/ring-video-doorbell-pro-2/4000100011"
     },
     {
       "id": "2026-08-24_2026-09-20:1616551",
@@ -163,7 +175,8 @@
       "discount_type": "save",
       "category": "Household Items",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/p/-/kirkland-signature-bath-tissue-30-rolls/4000100012"
     },
     {
       "id": "2026-08-24_2026-09-20:1617930",
@@ -175,7 +188,8 @@
       "discount_type": "save",
       "category": "Household Items",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/p/-/cascade-platinum-dishwasher-pacs-92-count/4000100013"
     },
     {
       "id": "2026-08-24_2026-09-20:1619309",
@@ -187,7 +201,8 @@
       "discount_type": "save",
       "category": "Mattresses",
       "availability": "online",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": null
     },
     {
       "id": "2026-08-24_2026-09-20:1620688",
@@ -199,7 +214,8 @@
       "discount_type": "after_discount",
       "category": "Patio/Lawn/Garden",
       "availability": "online",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/p/-/sunjoy-10-x27-x-12-x27-gazebo/4000100015"
     },
     {
       "id": "2026-08-24_2026-09-20:1622067",
@@ -211,7 +227,8 @@
       "discount_type": "save",
       "category": "Pets",
       "availability": "warehouse",
-      "purchase_limit": 3
+      "purchase_limit": 3,
+      "product_url": "https://www.costco.com/p/-/kirkland-signature-cat-litter-40-lb/4000100016"
     },
     {
       "id": "2026-08-24_2026-09-20:1623446",
@@ -223,7 +240,8 @@
       "discount_type": "save",
       "category": "Pharmacy",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/p/-/prilosec-otc-42-tablets/4000100017"
     }
   ]
 }

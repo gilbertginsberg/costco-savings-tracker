@@ -16,6 +16,7 @@ const page = (items: Partial<ParsedPage["items"][number]>[], start = "2026-09-21
     category: "Grocery",
     availability: "both",
     purchase_limit: null,
+    product_url: null,
     ...i,
   })),
 });
@@ -53,4 +54,11 @@ test("refusing to merge into a different period", () => {
     mergeFetch(first.file, page([{}], "2026-10-19", "2026-11-15"), { now: new Date(), sourceUrl: url }),
   );
   assert.equal(periodId("2026-10-19", "2026-11-15"), "2026-10-19_2026-11-15");
+});
+
+test("a refresh without a product link keeps the stored one", () => {
+  const first = mergeFetch(null, page([{ item_number: "1", product_url: "https://www.costco.com/p/-/a/1" }]), { now: new Date(), sourceUrl: url });
+  const second = mergeFetch(first.file, page([{ item_number: "1", product_url: null }]), { now: new Date(), sourceUrl: url });
+  assert.equal(second.file.items[0].product_url, "https://www.costco.com/p/-/a/1");
+  assert.deepEqual(second.updated, []);
 });

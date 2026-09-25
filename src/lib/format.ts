@@ -25,3 +25,15 @@ export function describeDiscount(item: DealItem): string {
 export function totalSavings(items: DealItem[]): number {
   return items.reduce((sum, i) => sum + i.discount_amount, 0);
 }
+
+/**
+ * Where a deal card links on costco.com: the product page when we have it,
+ * otherwise a Costco.com search for the item number.
+ */
+export function costcoLink(item: DealItem): { href: string; label: string } {
+  if (item.product_url) return { href: item.product_url, label: "View on Costco.com" };
+  return {
+    href: `https://www.costco.com/s?dept=All&keyword=${encodeURIComponent(item.item_number)}`,
+    label: "Find on Costco.com",
+  };
+}

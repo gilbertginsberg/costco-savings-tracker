@@ -19,7 +19,8 @@
       "discount_type": "save",
       "category": "Apparel",
       "availability": "both",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/kirkland-signature-men-x27-s-performance-fleece-pullover.product.4000000000.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1701380",
@@ -31,7 +32,8 @@
       "discount_type": "after_discount",
       "category": "Apparel",
       "availability": "both",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/eddie-bauer-ladies-x27-packable-down-jacket.product.4000000001.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1702759",
@@ -43,7 +45,8 @@
       "discount_type": "save",
       "category": "Appliances",
       "availability": "online",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/ninja-12-cup-programmable-coffee-maker.product.4000000002.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1704138",
@@ -55,7 +58,8 @@
       "discount_type": "after_discount",
       "category": "Appliances",
       "availability": "both",
-      "purchase_limit": 1
+      "purchase_limit": 1,
+      "product_url": "https://www.costco.com/vitamix-5300-blender.product.4000000003.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1705517",
@@ -67,7 +71,8 @@
       "discount_type": "save",
       "category": "Automotive",
       "availability": "warehouse",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": null
     },
     {
       "id": "2026-09-21_2026-10-18:1706896",
@@ -79,7 +84,8 @@
       "discount_type": "save",
       "category": "Automotive",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/rain-x-latitude-wiper-blades-2-pack.product.4000000005.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1708275",
@@ -91,7 +97,8 @@
       "discount_type": "save",
       "category": "Beauty",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/olay-regenerist-micro-sculpting-cream-2-pack.product.4000000006.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1709654",
@@ -103,7 +110,8 @@
       "discount_type": "save",
       "category": "Beauty",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/cerave-moisturizing-cream-19-oz-2-pack.product.4000000007.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1711033",
@@ -115,7 +123,8 @@
       "discount_type": "save",
       "category": "Electronics",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/apple-airpods-pro-2nd-generation.product.4000000008.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1712412",
@@ -127,7 +136,8 @@
       "discount_type": "after_discount",
       "category": "Electronics",
       "availability": "online",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": null
     },
     {
       "id": "2026-09-21_2026-10-18:1713791",
@@ -139,7 +149,8 @@
       "discount_type": "save",
       "category": "Electronics",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/sandisk-256gb-ultra-microsdxc-card-2-pack.product.4000000010.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1715170",
@@ -151,7 +162,8 @@
       "discount_type": "save",
       "category": "Furniture",
       "availability": "online",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/true-innovations-big-amp-tall-office-chair.product.4000000011.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1716549",
@@ -163,7 +175,8 @@
       "discount_type": "save",
       "category": "Grocery",
       "availability": "both",
-      "purchase_limit": 4
+      "purchase_limit": 4,
+      "product_url": "https://www.costco.com/kirkland-signature-organic-extra-virgin-olive-oil-2-l.product.4000000012.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1717928",
@@ -175,7 +188,8 @@
       "discount_type": "save",
       "category": "Grocery",
       "availability": "both",
-      "purchase_limit": 4
+      "purchase_limit": 4,
+      "product_url": "https://www.costco.com/starbucks-pike-place-whole-bean-coffee-2-5-lb.product.4000000013.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1719307",
@@ -187,7 +201,8 @@
       "discount_type": "save",
       "category": "Grocery",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": null
     },
     {
       "id": "2026-09-21_2026-10-18:1720686",
@@ -199,7 +214,8 @@
       "discount_type": "save",
       "category": "Health & Personal Care",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/oral-b-io-series-5-rechargeable-toothbrush-2-pack.product.4000000015.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1722065",
@@ -211,7 +227,8 @@
       "discount_type": "save",
       "category": "Health & Personal Care",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/kirkland-signature-daily-multi-500-tablets.product.4000000016.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1723444",
@@ -223,7 +240,8 @@
       "discount_type": "after_discount",
       "category": "Home & Kitchen",
       "availability": "online",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/cuisinart-12-piece-stainless-steel-cookware-set.product.4000000017.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1724823",
@@ -235,7 +253,8 @@
       "discount_type": "save",
       "category": "Home & Kitchen",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/brita-standard-replacement-filters-10-pack.product.4000000018.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1726202",
@@ -247,7 +266,8 @@
       "discount_type": "save",
       "category": "Home Improvement",
       "availability": "both",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": null
     },
     {
       "id": "2026-09-21_2026-10-18:1727581",
@@ -259,7 +279,8 @@
       "discount_type": "save",
       "category": "Home Improvement",
       "availability": "both",
-      "purchase_limit": 4
+      "purchase_limit": 4,
+      "product_url": "https://www.costco.com/feit-electric-led-shop-light-2-pack.product.4000000020.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1728960",
@@ -271,7 +292,8 @@
       "discount_type": "save",
       "category": "Household Items",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/kirkland-signature-paper-towels-12-rolls.product.4000000021.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1730339",
@@ -283,7 +305,8 @@
       "discount_type": "save",
       "category": "Household Items",
       "availability": "both",
-      "purchase_limit": 5
+      "purchase_limit": 5,
+      "product_url": "https://www.costco.com/tide-pods-laundry-detergent-152-count.product.4000000022.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1733097",
@@ -295,7 +318,8 @@
       "discount_type": "save",
       "category": "Mattresses",
       "availability": "online",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": null
     },
     {
       "id": "2026-09-21_2026-10-18:1731718",
@@ -307,7 +331,8 @@
       "discount_type": "save",
       "category": "Optical",
       "availability": "warehouse",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/bausch-lomb-lens-solution-5-pack.product.4000000023.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1734476",
@@ -319,7 +344,8 @@
       "discount_type": "after_discount",
       "category": "Patio/Lawn/Garden",
       "availability": "online",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": "https://www.costco.com/ego-power-56v-21-quot-self-propelled-mower-kit.product.4000000025.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1735855",
@@ -331,7 +357,8 @@
       "discount_type": "save",
       "category": "Pets",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/kirkland-signature-nature-x27-s-domain-salmon-dog-food-35-lb.product.4000000026.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1737234",
@@ -343,7 +370,8 @@
       "discount_type": "save",
       "category": "Pets",
       "availability": "warehouse",
-      "purchase_limit": 3
+      "purchase_limit": 3,
+      "product_url": "https://www.costco.com/tidy-cats-lightweight-clumping-litter-38-lb.product.4000000027.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1738613",
@@ -355,7 +383,8 @@
       "discount_type": "save",
       "category": "Pharmacy",
       "availability": "both",
-      "purchase_limit": 2
+      "purchase_limit": 2,
+      "product_url": "https://www.costco.com/kirkland-signature-allergy-relief-365-tablets.product.4000000028.html"
     },
     {
       "id": "2026-09-21_2026-10-18:1739992",
@@ -367,7 +396,8 @@
       "discount_type": "save",
       "category": "Pharmacy",
       "availability": "warehouse",
-      "purchase_limit": null
+      "purchase_limit": null,
+      "product_url": null
     }
   ]
 }
