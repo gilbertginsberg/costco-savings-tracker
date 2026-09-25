@@ -1,7 +1,16 @@
 /** Site-wide constants and env-driven config (all optional, all public). */
 
 export const SITE_NAME = "Costco Savings Tracker";
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://costcosavingstracker.com").replace(/\/$/, "");
+/**
+ * Canonical URL. Prefers NEXT_PUBLIC_SITE_URL, then Vercel's production domain
+ * (set automatically on Vercel builds), then localhost.
+ */
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000")
+).replace(/\/$/, "");
 export const NEWSLETTER_URL = "https://kirklandcorner.substack.com";
 export const KIRKLAND_CALC_URL = "https://kirklandcalc.com";
 export const COSTCO_SAVINGS_URL = "https://www.costco.com/o/-/warehouse-savings";

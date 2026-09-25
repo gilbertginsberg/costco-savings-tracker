@@ -21,7 +21,7 @@ It's a companion to [Kirkland Calc](https://kirklandcalc.com) and part of [Kirkl
 - **Tailwind CSS v4** with the Kirkland Corner palette (shared with Kirkland Calc)
 - **cheerio** for HTML parsing
 - **JSON files in git** (`data/periods/`) as the database. No server or DB to run, and git history is an audit log
-- **GitHub Actions** for the scheduled fetch, **Vercel** for hosting (each data commit redeploys)
+- **GitHub Actions** for the scheduled fetch and CI, **Vercel** for hosting (each data commit redeploys)
 
 ## Local setup
 
@@ -83,9 +83,18 @@ The workflow runs daily. `cadence.ts` fetches every 3 days mid-period and daily 
 
 ## Deployment
 
-1. **Vercel**: import the repo. It's a standard Next.js app with no build config needed. Set the env vars below.
-2. **Scheduled fetch**: `.github/workflows/fetch-deals.yml`. Scheduled runs are **off** until you set the repo variable `FETCH_ENABLED=true`. Read Costco.com's Terms of Use first (see Open questions). You can always trigger a run manually from the Actions tab.
-3. **First data**: run the workflow manually, or locally: `npm run fetch-deals -- --force` and commit `data/periods/`.
+**Vercel** (config in `vercel.json`: Next.js preset, `npm ci`, Node 22 from `package.json` engines, basic security headers):
+
+1. In Vercel, **Add New → Project → Import** `gilbertginsberg/costco-savings-tracker`. The preset and commands are picked up from `vercel.json`, so leave the defaults.
+2. Set **Production Branch** to `main` (Settings → Git).
+3. Add the env vars below (Settings → Environment Variables). If you leave `NEXT_PUBLIC_SITE_URL` unset, canonical URLs use the Vercel production domain. Set it once a custom domain is attached.
+4. Every push redeploys, including the fetch job's data commits to `main`. That's how new deals go live. Preview deployments are `noindex` by default on Vercel.
+
+**Scheduled fetch** (`.github/workflows/fetch-deals.yml`):
+
+1. Scheduled runs are **off** until you set the repo variable `FETCH_ENABLED=true` (Settings → Secrets and variables → Actions → Variables). Read Costco.com's Terms of Use first (see Open questions). Manual runs from the Actions tab always work.
+2. The job commits to the default branch with the built-in `GITHUB_TOKEN`. Under Settings → Actions → General → Workflow permissions, allow **Read and write**.
+3. **First data**: run the workflow manually, or locally run `npm run fetch-deals -- --force` and commit `data/periods/`.
 4. If Costco blocks plain HTTP fetches, use `--browser` (Playwright), or save the page from a browser and run `npm run fetch-deals -- --file page.html`.
 
 ## Environment variables
@@ -94,7 +103,7 @@ All optional. See `.env.example`.
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata and sitemap |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata and sitemap. Defaults to the Vercel production domain |
 | `NEXT_PUBLIC_AMAZON_TAG` | Amazon Associates tag (same as Kirkland Calc). Unset means no affiliate links |
 | `NEXT_PUBLIC_ADSENSE_CLIENT`, `NEXT_PUBLIC_ADSENSE_SLOT_*` | AdSense. Unset means ad slots render nothing |
 | `NEXT_PUBLIC_MATOMO_SITE_ID` | Matomo analytics, used to track sessions toward Mediavine/Raptive eligibility |
